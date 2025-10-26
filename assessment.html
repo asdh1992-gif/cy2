@@ -1,50 +1,65 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
+
+
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>قيّم وعيك السيبراني - سايبر آيبا</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="سايبر آيبا" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="شعار سايبر ايبا-01.png" />
+<link rel="icon" href="شعار سايبر ايبا-01.png" sizes="32x32" type="image/png" />
+
+<!-- force same-tab for links -->
+<base target="_self" />
+
+<meta name="theme-color" content="#172F79" />
+
+   
+<title>الصفحة الرئيسية</title>
 <style>
-/* ===========================
-   1) الخطّ الأساسي (WOFF2/WOFF/TTF)
-=========================== */
+   --------------------------- */
+/* ====== الخط ====== */
+
 @font-face{
-  font-family: 'SSTArabic';
-  src: url('SSTArabic-Medium.woff2') format('woff2'),
-       url('SSTArabic-Medium.woff') format('woff'),
-       url('SSTArabic-Medium.ttf') format('truetype');
-  font-weight: 500;
-  font-style: normal;
+  font-family:'SSTArabic';
+  src:url('SSTArabic-Regular.woff2') format('woff2'),
+      url('SSTArabic-Regular.woff') format('woff'),
+      url('SSTArabic-Regular.ttf') format('truetype');
+  font-weight:400; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:'SSTArabic';
+  src:url('SSTArabic-Medium.woff2') format('woff2'),
+      url('SSTArabic-Medium.woff') format('woff'),
+      url('SSTArabic-Medium.ttf') format('truetype');
+  font-weight:500; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:'SSTArabic';
+  src:url('SSTArabic-Bold.woff2') format('woff2'),
+      url('SSTArabic-Bold.woff') format('woff'),
+      url('SSTArabic-Bold.ttf') format('truetype');
+  font-weight:700; font-style:normal; font-display:swap;
 }
 
-/* ===========================
-   2) متغيرات الألوان العامة
-=========================== */
 :root{
-  --blue-1: #112b7c;
-  --blue-2: #1f4690;
-  --ink:    #222;
-  --muted:  #6b7280;
-  --bg:     #f8f8fb;
-  --card:   #ffffff;
-  --border: #e5e7eb;
-  --accent: rgb(0,185,181);
+  --blue: rgb(23,47,121);
+  --hover: rgb(0,185,181);
+  --white: #fff;
 }
-
-/* ===========================
-   3) تخطيط عام للصفحة (Header | Content | Footer)
-=========================== */
-html, body{ height:100% }
-body{
-  font-family: 'SSTArabic','Segoe UI',Tahoma,Arial,sans-serif;
-  margin: 0;
-  color: var(--ink);
-  background: linear-gradient(135deg, var(--blue-1), var(--blue-2));
-  min-height: 100vh;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{
+  height:100%;
+  font-family:'SSTArabic', 'Segoe UI', Tahoma, sans-serif;
+  background:linear-gradient(135deg,var(--blue),#1f4690);
+  color:#fff;
+  display:flex;
+  flex-direction:column;
 }
-
 
 /* ===== الهيدر (موحّد) ===== */
 .header{
@@ -64,151 +79,54 @@ body{
 }
 .header-center a:hover{background:#f3f4f6}
 
-/* استجابة الهيدر للتابلت/الجوال */
-@media (max-width: 768px){
-  .brand-left img, .brand-right img{ height: 48px; }
-  .header-inner{ padding: 10px 12px; }
+/* القسم الرئيسي */
+.container{
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:40px 16px;
 }
+.hero{
+  background:rgba(255,255,255,.06);
+  padding:34px;
+  border-radius:12px;
+  max-width:900px;
+  width:100%;
+}
+.hero h1{font-size:30px;margin:6px 0}
+.lead{max-width:800px;margin:10px auto 20px;line-height:1.7;color:#e8eefb}
 
-/* ===========================
-   5) قسم الهبوط (الهيرو)
-=========================== */
-.landing{
-  color: #fff;
-  text-align: center;
-  padding: 70px 20px 96px;
+/* الأزرار */
+.start-buttons{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+  gap:16px; margin-top:16px;
 }
-h1{
-  font-size: 35px;
-  font-weight: 300;
-  margin: 10px 0;
+.icon-btn{
+  background:var(--white);
+  color:var(--blue);
+  border:2px solid var(--blue);
+  height:72px;
+  border-radius:12px;
+  font-weight:700;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  text-decoration:none;
+  transition:all .25s ease;
 }
-.lead{
-  font-size: 1.1rem;
-  line-height: 1.7;
-  margin: 16px auto;
-  max-width: 760px;
-  color: #eef2ff;
+.icon-btn:hover{
+  background:var(--hover);
+  border-color:var(--hover);
+  color:#fff;
+  transform:translateY(-2px);
 }
+.icon-btn svg{width:28px;height:28px;display:block}
 
-/* زر بأسلوب IPA (A-) */
-a.A-{
-  direction: rtl;
-  background: #fff;
-  border: 2px solid rgb(23,47,121);
-  color: rgb(23,47,121);
-  cursor: pointer;
-  display: inline-block;
-  height: 48px;
-  min-width: 180px;
-  padding: 0 18px;
-  font-size: 16px;
-  line-height: 46px;
-  text-align: center;
-  border-radius: 6px;
-  margin-top: 22px;
-  box-sizing: border-box;
-  text-decoration: none;
-  transition: all .25s;
-}
-a.A-:hover{  background: var(--accent); color: #fff; }
-a.A-:active{ background: var(--accent); color: #fff; }
-a.A-:visited{ color: rgb(23,47,121); }
-
-/* ===========================
-   6) حاوية الاختبار والبطاقة
-=========================== */
-.quiz-wrap{
-  max-width: 860px;
-  margin: 48px auto;
-  padding: 0 16px;
-}
-.card{
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 26px 24px;
-  margin: 0 auto;
-  box-shadow: 0 8px 28px rgba(0,0,0,.06);
-}
-.muted{ color: var(--muted); }
-
-/* شريط التقدم */
-.progress{
-  height: 6px;
-  background: #e5e7eb;
-  border-radius: 10px;
-  overflow: hidden;
-  margin: 16px 0;
-}
-.progress > span{
-  display: block;
-  height: 100%;
-  background: var(--accent);
-  width: 0%;
-  transition: width .3s;
-}
-
-/* عنوان السؤال */
-.q-title{
-  font-size: 1.25rem;
-  margin: .2rem 0 .8rem;
-}
-
-/* قائمة الخيارات */
-.choices{
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-/* خيار واحد */
-.choice{
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: #f7f7fb;
-  border: 1px solid #eee;
-  padding: 10px 12px;
-  border-radius: 10px;
-  cursor: pointer;
-}
-.choice input{ accent-color: var(--blue-2); }
-
-/* أزرار التنقل */
-.actions{
-  display: flex;
-  gap: 10px;
-  margin-top: 14px;
-  flex-wrap: wrap;
-}
-button{
-  font-family: 'SSTArabic';
-  cursor: pointer;
-  border: none;
-  border-radius: 10px;
-  padding: 10px 18px;
-  font-size: 1rem;
-}
-.btn-main{  background: var(--accent); color: #fff; } /* التالي / إنهاء */
-.btn-ghost{ background: #f1f1f1; color: #333; }      /* السابق */
-
-/* ===========================
-   7) صندوق النتيجة وألوان المستويات
-=========================== */
-.result-box{
-  border-radius: 12px;
-  padding: 16px;
-  margin-top: 14px;
-  border: 1px solid #eee;
-}
-.low{  background:#ffebee; color:#b71c1c; border-color:#ffcdd2; }
-.mid{  background:#fff8e1; color:#b28704; border-color:#ffe082; }
-.high{ background:#e8f5e9; color:#1b5e20; border-color:#c8e6c9; }
-
-/* ===========================
-   8) الفوتر (موحّد)
-=========================== */
+/* الفوتر */
 .footer{
   background:rgba(0,0,0,0.05);
   text-align:center;
@@ -220,11 +138,17 @@ button{
   position:sticky;
   bottom:0;
 }
+
+/* استجابة للتابلت والجوال */
+@media(max-width:760px){
+  .brand-left img,.brand-right img{height:48px}
+  .icon-btn{height:60px}
+  .hero h1{font-size:24px}
+}
 </style>
 </head>
 <body>
 
-<!-- Header (موحّد) -->
 <header class="header">
   <div class="header-inner">
     <div class="brand-left"><a href="index.html"><img src="اشكال الشعارات-07.png" alt="شعار يسار"/></a></div>
@@ -233,149 +157,72 @@ button{
   </div>
 </header>
 
-<!-- Landing -->
-<section class="landing" id="landing">
-  <h1>اختبر وعيك السيبراني بخطوات سريعة — بدون حفظ أو تتبع.</h1>
-  <h1>لماذا تختبر وعيك؟</h1>
-  <p class="lead">الاختبار يساعدك على معرفة نقاط القوة والضعف في ممارساتك الأمنية الشخصية، ويعطيك نصائح سريعة لتحسين الحماية.</p>
-  <a href="#quiz" class="A-" id="startBtn">ابدأ الاختبار</a>
-</section>
+<main class="container">
+  <section class="hero">
+    <h1>اختبر وعيك السيبراني  -  إكتشف التصيّد</h1>
+    <p class="lead">ابدأ رحلتك نحو وعي أمني أفضل باختيار أحد الاختبارين التاليين:</p>
 
-<!-- Quiz -->
-<div class="quiz-wrap">
-  <section id="quiz" class="card" style="display:none">
-    <h1>قيّم نفسك مع سايبر آيبا</h1>
-    <p class="muted">اختبار وعي سيبراني سريع من 10 أسئلة. لا يتم حفظ أي بيانات. اختر الإجابة الأنسب ثم اضغط "التالي".</p>
-    <div class="progress"><span id="bar"></span></div>
-    <div id="quizBody"></div>
-    <div class="actions">
-      <button id="prevBtn" class="btn-ghost" disabled>السابق</button>
-      <button id="nextBtn" class="btn-main">التالي</button>
-      <button id="restartBtn" class="btn-ghost" style="display:none">إعادة المحاولة</button>
-    </div>
+    <nav class="start-buttons">
+
+      <a href="assessment.html" class="icon-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="8" r="3" stroke="currentColor" stroke-width="2"/>
+          <path d="M4 20c2-4 6-6 8-6s6 2 8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        قيّم نفسك
+      </a>
+
+
+      <a href="phishing.html" class="icon-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2v10M5 9l7-7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        إكتشف التصيّد
+      </a>
+
+
+    </nav>
   </section>
-</div>
+</main>
 
-<!-- Footer (موحّد) -->
 <footer class="footer">صُنع بوعي في سايبر آيبا</footer>
 
 <script>
-/* إظهار الاختبار وإخفاء الهبوط */
-document.getElementById('startBtn').addEventListener('click', function(e){
-  e.preventDefault();
-  document.getElementById('landing').style.display='none';
-  document.getElementById('quiz').style.display='block';
-  window.scrollTo({top:0,behavior:'smooth'});
-});
+(function () {
+  var isStandalone = window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches;
+  if (!isStandalone) return;
 
-/* الأسئلة (كما في ملفك) */
-const QUESTIONS=[
-  {q:'هل تستخدم نفس كلمة المرور لأكثر من حساب؟',c:[{t:'نعم دائمًا',s:1},{t:'أحيانًا',s:2},{t:'لا أبدًا',s:3}]},
-  {q:'هل تستخدم خاصية التحقق بخطوتين (2FA) لحساباتك؟',c:[{t:'نعم، لكل حساب',s:3},{t:'لبعض الحسابات',s:2},{t:'لا أستخدمها',s:1}]},
-  {q:'عند استلامك بريد إلكتروني يحتوي على رابط غريب ، ماذا تفعل؟',c:[{t:'أنقر على الرابط  لأعرف المحتوى',s:1},{t:'أتجاهله وأحذفه',s:2},{t:'أتأكد من المصدر أولًا',s:3}]},
-  {q:'هل تحدّث نظام التشغيل وتطبيقاتك بانتظام؟',c:[{t:'دائمًا',s:3},{t:'نادرًا',s:2},{t:'لا أعرف أهمية التحديث',s:1}]},
-  {q:'هل سبق وأن شاركت كلمة مرورك مع شخص آخر؟',c:[{t:'نعم',s:1},{t:'فقط مع الأصدقاء أو العائلة',s:2},{t:'لا أبدًا',s:3}]},
-  {q:'هل تقوم بحفظ كلمات المرور في المتصفح بدون حماية؟',c:[{t:'نعم',s:1},{t:'لا أعلم إن كانت محمية',s:2},{t:'لا، أستخدم مدير كلمات مرور',s:3}]},
-  {q:'هل تعتقد أن حساباتك غير مهمة لذلك لا تحتاج حماية قوية؟',c:[{t:'نعم',s:1},{t:'ليس كثيرًا',s:2},{t:'لا، كل حساب يحتاج حماية',s:3}]},
-  {q:'عند استخدام شبكة Wi-Fi عامة، هل تتخذ أي احتياطات؟',c:[{t:'لا، أستخدمها بشكل عادي',s:1},{t:'أستخدمها وأتجنب المعاملات الحساسة',s:2},{t:'لا أستخدم Wi-Fi عامة أبدًا',s:3}]},
-  {q:'ما مدى معرفتك بأنواع الهجمات الإلكترونية؟ (مثل التصيد، والهندسة الاجتماعية)',c:[{t:'أعرفها جيدًا وأتجنبها',s:3},{t:'أعرف بعض الأنواع',s:2},{t:'لا أعرف عنها شيئًا',s:1}]},
-  {q:'هل سبق وأن تعرضت لاختراق أو محاولة احتيال إلكتروني؟',c:[{t:'نعم، وتم اختراقي',s:1},{t:'تمت المحاولة لكن نجوت',s:3},{t:'لا أبدًا',s:2}]}
-];
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.startsWith('javascript:') || href === '#') return;
+    try {
+      var url = new URL(href, location.href);
+      if (url.origin === location.origin) {
+        e.preventDefault();
+        location.href = url.href;
+      }
+    } catch (err) {}
+  }, true);
 
-let current=0;
-let answers=Array(QUESTIONS.length).fill(null);
-const qBody=document.getElementById('quizBody');
-const bar=document.getElementById('bar');
-const prev=document.getElementById('prevBtn');
-const next=document.getElementById('nextBtn');
-const restart=document.getElementById('restartBtn');
-
-function render(){
-  const q=QUESTIONS[current],saved=answers[current];
-  bar.style.width=(current/QUESTIONS.length*100)+'%';
-  qBody.innerHTML=`
-    <div class="q-title">${current+1} / ${QUESTIONS.length} — ${q.q}</div>
-    <div class="choices">
-      ${q.c.map(o=>`
-        <label class="choice">
-          <input type="radio" name="opt" value="${o.s}" ${saved===o.s?'checked':''}/>
-          <span>${o.t}</span>
-        </label>
-      `).join('')}
-    </div>
-    <p class="muted" style="margin-top:6px">* لا يتم حفظ أي ردود — للإستخدام المحلي فقط.</p>
-  `;
-  prev.disabled=current===0;
-  next.textContent=current===QUESTIONS.length-1?'إنهاء التقييم':'التالي';
-}
-
-function selected(){
-  const s=qBody.querySelector('input[name="opt"]:checked');
-  return s?Number(s.value):null;
-}
-
-function showResult(){
-  const total = answers.reduce((a,b)=>a+(b||0),0);
-  bar.style.width = '100%';
-
-  // نصائح مخصّصة بناءً على الإجابات
-  let tips = [];
-  if (answers[0] <= 2) tips.push('استخدم كلمات مرور مختلفة لكل حساب أو مدير كلمات مرور.');
-  if (answers[1] <= 2) tips.push('فعّل التحقق بخطوتين في جميع حساباتك لحمايتها من الاختراق.');
-  if (answers[2] <= 2) tips.push('لا تفتح أي رابط قبل التأكد من مصدره، حتى لو بدا رسميًا.');
-  if (answers[3] <= 2) tips.push('حدّث نظامك وتطبيقاتك دائمًا لتصحيح الثغرات الأمنية.');
-  if (answers[4] <= 2) tips.push('لا تشارك كلمات المرور مع أي شخص، حتى المقربين.');
-  if (answers[5] <= 2) tips.push('استخدم تطبيقًا متخصصًا لإدارة كلمات المرور بدل التخزين في المتصفح.');
-  if (answers[6] <= 2) tips.push('كل حساب يحمل بيانات حساسة، احمه بنفس القدر.');
-  if (answers[7] <= 2) tips.push('تجنّب الشبكات العامة أو استخدم VPN عند الضرورة.');
-  if (answers[8] <= 2) tips.push('طوّر وعيك بمعرفة طرق الاحتيال والتصيد الإلكتروني.');
-  if (answers[9] <= 2) tips.push('راجع إعدادات الأمان لحساباتك وغيّر كلمات المرور فورًا.');
-
-  // تحديد مستوى الوعي
-  let level;
-  if (total <= 14) level='منخفض';
-  else if (total <= 22) level='متوسط';
-  else level='مرتفع';
-
-  // عرض النتيجة
-  qBody.innerHTML = `
-    <div class="result-box">
-      <div style="font-size:1.2rem; margin-bottom:8px;">النتيجة النهائية</div>
-      <div style="margin-bottom:4px;">درجتك: <strong>${total}</strong> من 30</div>
-      <div>مستوى الوعي: <strong>${level}</strong></div>
-      <hr style="margin:12px 0; border:none; border-top:1px solid #e0e0e0">
-      <div><strong>نصائح لتحسين وعيك:</strong></div>
-      <ul style="margin-top:6px; text-align:right; line-height:1.7">
-        ${tips.length ? tips.map(t => `<li>${t}</li>`).join('') : '<li>ممتاز! لم تُظهر إجاباتك أي نقاط ضعف واضحة.</li>'}
-      </ul>
-    </div>
-  `;
-
-  next.style.display='none';
-  prev.style.display='none';
-  restart.style.display='inline-block';
-}
-
-/* تنقل */
-prev.addEventListener('click',()=>{
-  const s=selected(); if(s!==null) answers[current]=s;
-  if(current>0){current--; render();}
-});
-next.addEventListener('click',()=>{
-  const s=selected();
-  if(s===null){ alert('الرجاء اختيار إجابة أولًا.'); return; }
-  answers[current]=s;
-  if(current<QUESTIONS.length-1){ current++; render(); }
-  else { showResult(); }
-});
-
-/* تعديل زر إعادة المحاولة ليعود إلى الصفحة الرئيسية */
-restart.addEventListener('click',()=>{
-  window.location.href = 'index.html';
-});
-
-render();
+  var originalOpen = window.open;
+  window.open = function (u, name, specs) {
+    try {
+      var url = new URL(u, location.href);
+      if (url.origin === location.origin) {
+        location.href = url.href;
+        return null;
+      }
+    } catch (e) {}
+    return originalOpen.call(window, u, name, specs);
+  };
+})();
 </script>
+
+
+   
 </body>
 </html>
+
 
