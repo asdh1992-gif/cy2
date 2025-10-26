@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>سايبر آيبا – الرئيسية / التقييم / التصيّد (SPA)</title>
+
+  <!-- iOS full-screen (standalone) -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="سايبر آيبا" />
+  <meta name="theme-color" content="#172F79" />
+
+  <!-- إبقِ الروابط في نفس النافذة -->
+  <base target="_self" />
+
+  <!-- خطوط (تأكد من وجود هذه الملفات بجانب الصفحة) -->
+  <style>
+    @font-face{
+      font-family:'SSTArabic';
+      src:url('SSTArabic-Regular.woff2') format('woff2'),
+          url('SSTArabic-Regular.woff') format('woff'),
+          url('SSTArabic-Regular.ttf') format('truetype');
+      font-weight:400; font-style:normal; font-display:swap;
+    }
+    @font-face{
+      font-family:'SSTArabic';
+      src:url('SSTArabic-Medium.woff2') format('woff2'),
+          url('SSTArabic-Medium.woff') format('woff'),
+          url('SSTArabic-Medium.ttf') format('truetype');
+      font-weight:500; font-style:normal; font-display:swap;
+    }
+    @font-face{
+      font-family:'SSTArabic';
+      src:url('SSTArabic-Bold.woff2') format('woff2'),
+          url('SSTArabic-Bold.woff') format('woff'),
+          url('SSTArabic-Bold.ttf') format('truetype');
+      font-weight:700; font-style:normal; font-display:swap;
+    }
+
+    :root{
+      --blue: #172F79;
+      --accent: #00B9B5;
+      --bg-start:#112b7c; --bg-end:#1f4690;
+      --white:#fff; --card:#fff; --ink:#222; --muted:#6b7280;
+      --border:#e6e6e6;
+    }
+
+    html,body{height:100%;margin:0;font-family:'SSTArabic','Segoe UI',Tahoma,Arial,sans-serif}
+    body{display:flex;flex-direction:column;min-height:100vh;background:linear-gradient(135deg,var(--bg-start),var(--bg-end));color:#fff}
+
+    /* Header (موحّد) */
+    header{background:#fff;color:#222;position:sticky;top:0;z-index:50;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+    .header-inner{max-width:1200px;margin:0 auto;padding:10px 16px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px}
+    .brand-left img,.brand-right img{height:100px;width:auto;object-fit:contain;display:block}
+    .header-center{display:flex;justify-content:center;gap:12px}
+    .header-center a{color:#333;text-decoration:none;font-weight:700;padding:8px 12px;border-radius:8px}
+    .header-center a:hover{background:#f3f4f6}
+    @media(max-width:760px){.brand-left img,.brand-right img{height:48px}}
+
+    main.app{flex:1;display:block}
+    .wrap{max-width:1100px;margin:22px auto;padding:12px}
+    .footer{background:rgba(0,0,0,0.05);text-align:center;color:#fff;font-size:1.2rem;padding:10px 0;margin-top:auto}
+
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 16px;border-radius:12px;text-decoration:none;font-weight:700}
+    .btn-light{background:var(--card);color:var(--blue);border:2px solid var(--blue)}
+    .btn-accent{background:var(--accent);color:#fff;border:none}
+
+    /* HOME (scoped) */
+    [data-view="home"] .hero{background:rgba(255,255,255,.06);padding:34px;border-radius:12px;text-align:center}
+    [data-view="home"] .hero h1{font-size:28px;margin:6px 0}
+    [data-view="home"] .lead{color:#e8eefb;max-width:800px;margin:8px auto 18px;line-height:1.6}
+    [data-view="home"] .actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:16px}
+
+    /* ASSESSMENT (scoped) */
+    [data-view="assessment"] .card{background:var(--card);color:#111;border-radius:12px;padding:20px;box-shadow:0 10px 28px rgba(0,0,0,.08)}
+    [data-view="assessment"] h1{color:var(--bg-start);margin:0 0 6px}
+    [data-view="assessment"] .muted{color:var(--muted)}
+    [data-view="assessment"] .opt{display:flex;gap:10px;align-items:center;padding:10px;border-radius:10px;border:1px solid var(--border);cursor:pointer;background:#f7f7fb}
+    [data-view="assessment"] .progress{height:8px;background:#f1f5f9;border-radius:999px;overflow:hidden;margin:10px 0}
+    [data-view="assessment"] .progress>span{display:block;height:100%;background:var(--accent);width:0;transition:width .25s}
+
+    /* PHISHING (scoped) */
+    [data-view="phishing"] .card{background:var(--card);color:#111;border-radius:12px;padding:14px;box-shadow:0 8px 20px rgba(0,0,0,.07)}
+    [data-view="phishing"] .img-pane{background:#fafafa;display:flex;align-items:center;justify-content:center;padding:14px;border-bottom:1px solid #eee}
+    [data-view="phishing"] .img-pane img{max-width:100%;height:auto;border-radius:8px;border:1px solid #e9e9e9;display:block}
+    [data-view="phishing"] .q-title{font-size:1.05rem;margin:6px 0}
+    [data-view="phishing"] .choices{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    [data-view="phishing"] .choice{padding:12px;border-radius:10px;background:#f7f7fb;border:1px solid #eee;cursor:pointer;text-align:center;user-select:none}
+    [data-view="phishing"] .choice.correct{background:#e8f5e9;border-color:#c8e6c9}
+    [data-view="phishing"] .choice.wrong{background:#ffebee;border-color:#ffcdd2}
+    [data-view="phishing"] .actions{display:flex;gap:12px;justify-content:flex-end;flex-wrap:wrap;margin-top:12px}
+
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="brand-left"><a href="#/"><img src="اشكال الشعارات-07.png" alt="شعار يسار"/></a></div>
+    <div class="header-center">
+      <a href="#/" class="link-home">الرئيسية</a>
+      <a href="#/assessment" class="link-assess">التقييم</a>
+      <a href="#/phishing" class="link-phish">التصيّد</a>
+    </div>
+    <div class="brand-right"><a href="#/"><img src="شعار سايبر ايبا-01.png" alt="شعار يمين"/></a></div>
+  </div>
+</header>
+
+<main class="app" id="app">
+  <div class="wrap">
+
+    <!-- HOME -->
+    <section id="view-home" data-view="home" hidden>
+      <div class="hero">
+        <h1>اختبر وعيك السيبراني — اكتشف التصيّد</h1>
+        <p class="lead">ابدأ رحلتك نحو وعي أمني أفضل باختيار أحد الاختبارين التاليين:</p>
+        <div class="actions">
+          <a class="btn btn-light" href="#/assessment">قيّم نفسك</a>
+          <a class="btn btn-light" href="#/phishing">اكتشف التصيّد</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ASSESSMENT -->
+    <section id="view-assessment" data-view="assessment" hidden>
+      <div class="card">
+        <h1>قيّم نفسك</h1>
+        <p class="muted">اختبار وعي سيبراني سريع من 10 أسئلة. لا يتم حفظ أي بيانات.</p>
+        <div class="progress" aria-hidden="true"><span id="assess-bar"></span></div>
+        <div id="assess-q" style="margin-top:12px;"></div>
+        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px">
+          <button id="assess-prev" class="btn btn-light" disabled>السابق</button>
+          <button id="assess-next" class="btn btn-accent">التالي</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHISHING -->
+    <section id="view-phishing" data-view="phishing" hidden>
+      <div class="card">
+        <h1>اكتشف التصيّد</h1>
+        <div class="img-pane"><img id="phish-img" src="Picture1.jpg" alt="سؤال صورة"></div>
+        <div class="q-title" id="phish-title">هل هذه الرسالة حقيقية أم تصيّد؟</div>
+        <div class="choices" id="phish-choices" role="radiogroup"></div>
+        <div class="actions">
+          <button id="phish-prev" class="btn btn-light" disabled>السابق</button>
+          <button id="phish-next" class="btn btn-accent" disabled>التالي</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="footer">صُنع بوعي في سايبر آيبا</footer>
+
+<!-- مؤشر بسيط لحالة standalone لأغراض الاختبار -->
+<div id="state" style="position:fixed;inset:auto 10px 10px auto;background:#111;color:#0f0;padding:6px 10px;border-radius:8px;font:13px/1.2 sans-serif;z-index:9999">checking…</div>
+
+<script>
+(function(){
+  // ======= ROUTER (hash) =======
+  const routes = { '/': showHome, '': showHome, '/assessment': showAssessment, '/phishing': showPhishing };
+  function parseHash(){ return location.hash.replace(/^#/, '') || '/'; }
+  function hideAll(){ document.querySelectorAll('[data-view]').forEach(el=>el.hidden=true); }
+  function setActive(path){
+    document.querySelectorAll('.header-center a').forEach(a=>a.classList.remove('active'));
+    const map={ '/':'link-home','/assessment':'link-assess','/phishing':'link-phish' };
+    const cls = map[path]; if(cls) document.querySelector('.'+cls)?.classList.add('active');
+  }
+  function isStandalone(){ return !!(window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches); }
+  function updateState(){ const el=document.getElementById('state'); if(el) el.textContent='standalone = '+isStandalone(); }
+
+  // ======= HOME =======
+  function showHome(){ hideAll(); document.getElementById('view-home').hidden=false; setActive('/'); }
+
+  // ======= ASSESSMENT =======
+  const ASSESS_Q = [
+    {q:'هل تستخدم نفس كلمة المرور لأكثر من حساب؟', opts:['نعم دائمًا','أحيانًا','لا أبدًا'], score:[1,2,3]},
+    {q:'هل تستخدم خاصية التحقق بخطوتين (2FA)؟', opts:['لكل الحسابات','لبعضها','لا أستخدمها'], score:[3,2,1]},
+    {q:'عند استلام رابط غريب بالبريد، كيف تتصرف؟', opts:['أنقر لأرى المحتوى','أتجاهله','أتأكد من المصدر أولًا'], score:[1,2,3]},
+    {q:'تحديثات النظام والتطبيقات؟', opts:['دائمًا','أحيانًا','نادراً'], score:[3,2,1]},
+    {q:'مشاركة كلمات المرور؟', opts:['أشاركها','أحيانًا','لا أبدًا'], score:[1,2,3]},
+    {q:'حفظ كلمات المرور في المتصفح؟', opts:['أحفظها بلا حماية','لا أدري','أستخدم مدير كلمات مرور'], score:[1,2,3]},
+    {q:'أهمية حماية الحسابات؟', opts:['غير مهمة','متوسطة','مهمة لكل حساب'], score:[1,2,3]},
+    {q:'Wi‑Fi عامة؟', opts:['أستخدمها بلا قيود','أتجنب الحساس','لا أستخدم أو أستعمل VPN'], score:[1,2,3]},
+    {q:'معرفتك بهجمات الهندسة الاجتماعية؟', opts:['قليلة','متوسطة','جيدة'], score:[1,2,3]},
+    {q:'هل تعرضت لمحاولات احتيال؟', opts:['نعم وتم اختراقي','محاولة فاشلة','لا'], score:[1,3,2]}
+  ];
+  let ai=0, aAnswers=Array(ASSESS_Q.length).fill(null);
+  const aQ=document.getElementById('assess-q');
+  const aPrev=document.getElementById('assess-prev');
+  const aNext=document.getElementById('assess-next');
+  const aBar=document.getElementById('assess-bar');
+
+  function renderAssess(){
+    const Q=ASSESS_Q[ai];
+    aQ.innerHTML = `<div class="q" style="font-weight:700;margin-bottom:8px">${ai+1}) ${Q.q}</div>`+
+      Q.opts.map((t,idx)=>`<label class="opt"><input type="radio" name="assess_opt" value="${idx}" ${aAnswers[ai]===idx?'checked':''}/> <span>${t}</span></label>`).join('');
+    aPrev.disabled = ai===0;
+    aNext.textContent = ai===ASSESS_Q.length-1? 'إنهاء' : 'التالي';
+    aBar.style.width = (ai/ASSESS_Q.length*100)+'%';
+  }
+  function showAssessment(){ hideAll(); document.getElementById('view-assessment').hidden=false; setActive('/assessment'); renderAssess(); }
+  document.addEventListener('change', (e)=>{ if(e.target && e.target.name==='assess_opt'){ aAnswers[ai]=Number(e.target.value); }});
+  aPrev.addEventListener('click', ()=>{ if(ai>0){ ai--; renderAssess(); window.scrollTo({top:0,behavior:'smooth'}); }});
+  aNext.addEventListener('click', ()=>{
+    if(aAnswers[ai]==null){ alert('اختر إجابة أولاً'); return; }
+    if(ai<ASSESS_Q.length-1){ ai++; renderAssess(); window.scrollTo({top:0,behavior:'smooth'}); }
+    else finishAssess();
+  });
+  function finishAssess(){
+    aBar.style.width='100%';
+    const total = aAnswers.reduce((s,v,i)=> s + ASSESS_Q[i].score[v], 0);
+    let level = total<=14? 'منخفض' : total<=22? 'متوسط' : 'مرتفع';
+    const tips=[];
+    if(aAnswers[0]<=1) tips.push('استخدم كلمات مرور مختلفة لكل حساب أو مدير كلمات مرور.');
+    if(aAnswers[1]>=1) tips.push('فعّل التحقق بخطوتين لجميع الحسابات.');
+    if(aAnswers[2]===0) tips.push('لا تنقر على الروابط المجهولة قبل التحقق من المصدر.');
+    if(aAnswers[3]===2) tips.push('حدّث النظام والتطبيقات لإغلاق الثغرات.');
+    if(aAnswers[4]!==2) tips.push('لا تشارك كلمات المرور مع أي شخص.');
+    if(aAnswers[5]!==2) tips.push('استخدم مدير كلمات المرور بدلاً من التخزين غير المحمي.');
+
+    aQ.innerHTML = `<div class="result-box" style="border:1px solid #eee;border-radius:12px;padding:16px;background:#fff;color:#111">
+      <div style="font-size:1.2rem;margin-bottom:8px">النتيجة النهائية</div>
+      <div style="margin-bottom:4px">درجتك: <strong>${total}</strong> من 30</div>
+      <div>مستوى الوعي: <strong>${level}</strong></div>
+      <hr style="margin:12px 0;border:none;border-top:1px solid #e0e0e0">
+      <div><strong>نصائح مخصّصة:</strong></div>
+      <ul style="margin-top:6px;text-align:right;line-height:1.7">${tips.length? tips.map(t=>`<li>${t}</li>`).join('') : '<li>ممتاز! لا توجد نقاط ضعف واضحة.</li>'}</ul>
+      <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+        <a class="btn btn-light" href="#/">العودة للرئيسية</a>
+        <a class="btn btn-light" href="#/phishing">جرّب اختبار التصيّد</a>
+      </div>
+    </div>`;
+    aPrev.disabled=true; aNext.style.display='none';
+  }
+
+  // ======= PHISHING =======
+  const PH = [
+    {img:'Picture1.jpg', answer:0, right:'لاحظت أن الطلب غريب وقد يكون الحساب مخترق.', wrong:'هذه رسالة احتيال بسبب طلب غريب وطلب دفع أموال لطرف ثالث.'},
+    {img:'Picture2.jpg', answer:1, right:'المؤشرات توحي برسالة رسمية سليمة.', wrong:'هذه رسالة حقيقية — مرسل موثوق ورابط رسمي.'},
+    {img:'Picture3.jpg', answer:0, right:'أخطاء إملائية ورقم مشبوه — تصيّد.', wrong:'البنوك لا تطلب تحديث بطاقتك بهذه الطريقة.'},
+    {img:'Picture4.jpg', answer:1, right:'مصدر موثوق وتفاصيل دقيقة.', wrong:'هذه حقيقية من نطاق معتمد.'},
+    {img:'Picture5.jpg', answer:1, right:'الرابط رسمي عند التحقق.', wrong:'عند التحقق من الرابط يتضح أنه رسمي.'},
+    {img:'Picture6.jpg', answer:0, right:'طلب بيانات شخصية مقابل وظيفة = تصيّد.', wrong:'يدّعي وظائف ويطلب بيانات — احتيال.'},
+    {img:'Picture7.jpg', answer:0, right:'البريد المرسل عشوائي ويستخدم التخويف.', wrong:'الرسالة تستخدم التخويف — احتيال.'},
+    {img:'Picture8.jpg', answer:1, right:'لا مؤشرات تصيّد هنا.', wrong:'مرسل معروف ومحتوى شخصي دون روابط.'}
+  ];
+  let pi=0, pAns=Array(PH.length).fill(null);
+  const pImg=document.getElementById('phish-img');
+  const pChoices=document.getElementById('phish-choices');
+  const pPrev=document.getElementById('phish-prev');
+  const pNext=document.getElementById('phish-next');
+  function renderPhish(){
+    pImg.src = PH[pi].img; pImg.alt = 'سؤال '+(pi+1);
+    pChoices.innerHTML = ['تصيّد','حقيقية'].map((t,idx)=>`<div class="choice" data-val="${idx}" role="radio" tabindex="0">${t}</div>`).join('');
+    pPrev.disabled = pi===0; pNext.disabled = pAns[pi]==null;
+  }
+  function showPhishing(){ hideAll(); document.getElementById('view-phishing').hidden=false; setActive('/phishing'); renderPhish(); }
+  pChoices.addEventListener('click', (e)=>{ const ch=e.target.closest('.choice'); if(!ch) return; selectPhish(Number(ch.dataset.val), ch); });
+  pChoices.addEventListener('keydown', (e)=>{ const ch=e.target.closest('.choice'); if(ch && (e.key==='Enter'||e.key===' ')){ e.preventDefault(); selectPhish(Number(ch.dataset.val), ch); }});
+  function selectPhish(val, el){
+    if(pAns[pi]!=null) return;
+    pAns[pi]=val; document.querySelectorAll('#phish-choices .choice').forEach(c=>c.classList.remove('correct','wrong'));
+    const correct=PH[pi].answer; if(val===correct){ el.classList.add('correct'); alert('أحسنت: '+PH[pi].right); } else { el.classList.add('wrong'); alert('خطأ: '+PH[pi].wrong); }
+    pNext.disabled=false;
+  }
+  pPrev.addEventListener('click', ()=>{ if(pi>0){ pi--; renderPhish(); window.scrollTo({top:0,behavior:'smooth'}); }});
+  pNext.addEventListener('click', ()=>{
+    if(pi<PH.length-1){ pi++; renderPhish(); window.scrollTo({top:0,behavior:'smooth'}); }
+    else {
+      pChoices.innerHTML = `<div style="font-weight:700">انتهى الاختبار — شكرًا لتجربتك</div>
+        <div style="margin-top:12px"><a class=\"btn btn-light\" href=\"#/\">العودة للرئيسية</a> <a class=\"btn btn-light\" href=\"#/assessment\">قيّم نفسك</a></div>`;
+      pNext.style.display='none'; pPrev.disabled=true;
+    }
+  });
+
+  // ======= Hash routing init =======
+  function onHash(){ const p=parseHash(); updateState(); (routes[p]||routes['/'])(); }
+  window.addEventListener('hashchange', onHash);
+  window.addEventListener('DOMContentLoaded', onHash);
+
+  // تحديث حالة standalone عند تغيّر الرؤية (اختياري)
+  window.addEventListener('visibilitychange', updateState);
+})();
+</script>
+
+<!-- سكربت يحافظ على التشغيل داخل التطبيق (iOS standalone) -->
+<script>
+(function(){
+  var isStandalone = window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches;
+  if(!isStandalone) return;
+  // منع window.open الداخلي من فتح Safari
+  var origOpen = window.open;
+  window.open = function(u,n,s){ try{ var url=new URL(u,location.href); if(url.origin===location.origin){ location.href=url.href; return null; } }catch(e){} return origOpen.call(window,u,n,s); };
+  // إبقاء الروابط الداخلية داخل نفس النافذة
+  document.addEventListener('click', function(e){
+    var a=e.target.closest && e.target.closest('a[href]'); if(!a) return;
+    var href=a.getAttribute('href'); if(!href) return;
+    if(href.startsWith('#')) return; // روابط الهاش نسمح بها (للـ SPA)
+    try{ var url=new URL(href,location.href); if(url.origin===location.origin){ e.preventDefault(); location.href=url.href; } }catch(e){}
+  }, true);
+})();
+</script>
+
+</body>
+</html>
