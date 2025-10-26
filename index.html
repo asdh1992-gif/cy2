@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>الصفحة الرئيسية</title>
+<style>
+   --------------------------- */
+/* ====== الخط ====== */
+
+@font-face{
+  font-family:'SSTArabic';
+  src:url('SSTArabic-Regular.woff2') format('woff2'),
+      url('SSTArabic-Regular.woff') format('woff'),
+      url('SSTArabic-Regular.ttf') format('truetype');
+  font-weight:400; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:'SSTArabic';
+  src:url('SSTArabic-Medium.woff2') format('woff2'),
+      url('SSTArabic-Medium.woff') format('woff'),
+      url('SSTArabic-Medium.ttf') format('truetype');
+  font-weight:500; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:'SSTArabic';
+  src:url('SSTArabic-Bold.woff2') format('woff2'),
+      url('SSTArabic-Bold.woff') format('woff'),
+      url('SSTArabic-Bold.ttf') format('truetype');
+  font-weight:700; font-style:normal; font-display:swap;
+}
+
+:root{
+  --blue: rgb(23,47,121);
+  --hover: rgb(0,185,181);
+  --white: #fff;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{
+  height:100%;
+  font-family:'SSTArabic', 'Segoe UI', Tahoma, sans-serif;
+  background:linear-gradient(135deg,var(--blue),#1f4690);
+  color:#fff;
+  display:flex;
+  flex-direction:column;
+}
+
+/* ===== الهيدر (موحّد) ===== */
+.header{
+  background:#fff; border-bottom:1px solid #e6e6e6;
+  position: sticky; top:0; z-index:50; box-shadow:0 2px 8px rgba(0,0,0,.06);
+}
+.header-inner{
+  max-width:1200px; margin:0 auto; padding:10px 16px;
+  display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:12px;
+}
+.brand-left img, .brand-right img{
+  height:100px; width:auto; object-fit:contain; display:block;
+}
+.header-center{display:flex; justify-content:center}
+.header-center a{
+  color:#333; text-decoration:none; font-weight:700; padding:8px 12px; border-radius:8px;
+}
+.header-center a:hover{background:#f3f4f6}
+
+/* القسم الرئيسي */
+.container{
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:40px 16px;
+}
+.hero{
+  background:rgba(255,255,255,.06);
+  padding:34px;
+  border-radius:12px;
+  max-width:900px;
+  width:100%;
+}
+.hero h1{font-size:30px;margin:6px 0}
+.lead{max-width:800px;margin:10px auto 20px;line-height:1.7;color:#e8eefb}
+
+/* الأزرار */
+.start-buttons{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+  gap:16px; margin-top:16px;
+}
+.icon-btn{
+  background:var(--white);
+  color:var(--blue);
+  border:2px solid var(--blue);
+  height:72px;
+  border-radius:12px;
+  font-weight:700;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  text-decoration:none;
+  transition:all .25s ease;
+}
+.icon-btn:hover{
+  background:var(--hover);
+  border-color:var(--hover);
+  color:#fff;
+  transform:translateY(-2px);
+}
+.icon-btn svg{width:28px;height:28px;display:block}
+
+/* الفوتر */
+.footer{
+  background:rgba(0,0,0,0.05);
+  text-align:center;
+  color:#fff;
+  font-size:1.5rem;
+  padding:10px 0;
+  width:100%;
+  margin-top:auto;
+  position:sticky;
+  bottom:0;
+}
+
+/* استجابة للتابلت والجوال */
+@media(max-width:760px){
+  .brand-left img,.brand-right img{height:48px}
+  .icon-btn{height:60px}
+  .hero h1{font-size:24px}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="brand-left"><a href="index.html"><img src="اشكال الشعارات-07.png" alt="شعار يسار"/></a></div>
+    <div></div>
+    <div class="brand-right"><a href="index.html"><img src="شعار سايبر ايبا-01.png" alt="شعار يمين"/></a></div>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <h1>اختبر وعيك السيبراني  -  إكتشف التصيّد</h1>
+    <p class="lead">ابدأ رحلتك نحو وعي أمني أفضل باختيار أحد الاختبارين التاليين:</p>
+
+    <nav class="start-buttons">
+
+      <a href="assessment.html" class="icon-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="8" r="3" stroke="currentColor" stroke-width="2"/>
+          <path d="M4 20c2-4 6-6 8-6s6 2 8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        قيّم نفسك
+      </a>
+
+
+      <a href="phishing.html" class="icon-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2v10M5 9l7-7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        إكتشف التصيّد
+      </a>
+
+
+    </nav>
+  </section>
+</main>
+
+<footer class="footer">صُنع بوعي في سايبر آيبا</footer>
+
+</body>
+</html>
+
