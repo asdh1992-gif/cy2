@@ -1,8 +1,24 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
+
+
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="سايبر آيبا" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="شعار سايبر ايبا-01.png" />
+<link rel="icon" href="شعار سايبر ايبا-01.png" sizes="32x32" type="image/png" />
+
+<!-- force same-tab for links -->
+<base target="_self" />
+
+<meta name="theme-color" content="#172F79" />
+
+   
 <title>اكتشف التصيّد </title>
 <style>
 /* ---------------------------
@@ -385,8 +401,43 @@ function showResult(){
 
 render();
 </script>
+
+   <script>
+(function () {
+  var isStandalone = window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches;
+  if (!isStandalone) return;
+
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.startsWith('javascript:') || href === '#') return;
+    try {
+      var url = new URL(href, location.href);
+      if (url.origin === location.origin) {
+        e.preventDefault();
+        location.href = url.href;
+      }
+    } catch (err) {}
+  }, true);
+
+  var originalOpen = window.open;
+  window.open = function (u, name, specs) {
+    try {
+      var url = new URL(u, location.href);
+      if (url.origin === location.origin) {
+        location.href = url.href;
+        return null;
+      }
+    } catch (e) {}
+    return originalOpen.call(window, u, name, specs);
+  };
+})();
+</script>
+
 </body>
 </html>
+
 
 
 
